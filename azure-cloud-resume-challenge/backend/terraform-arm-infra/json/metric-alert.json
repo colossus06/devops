@@ -1,0 +1,64 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "metricAlerts_failed_requests_al_name": {
+            "defaultValue": "failed_requests_al",
+            "type": "String"
+        },
+        "components_appicrctopcug_externalid": {
+            "defaultValue": "[resourceId('microsoft.insights/components', 'appicrctopcug')]",            
+            "type": "String"
+        },
+        "actiongroups_failedreq_externalid": {
+            "defaultValue": "[resourceId('microsoft.insights/actiongroups', 'failedreq')]",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "microsoft.insights/metricAlerts",
+            "apiVersion": "2018-03-01",
+            "name": "[parameters('metricAlerts_failed_requests_al_name')]",
+            "location": "global",
+            "tags": {
+                "env": "crc"
+            },
+            "properties": {
+                "description": "failed_requests are above 1 for GetCount",
+                "severity": 3,
+                "enabled": true,
+                "scopes": [
+                    "[parameters('components_appicrctopcug_externalid')]"
+                ],
+                "evaluationFrequency": "PT1M",
+                "windowSize": "PT5M",
+                "criteria": {
+                    "allOf": [
+                        {
+                            "threshold": 1,
+                            "name": "Metric1",
+                            "metricNamespace": "microsoft.insights/components",
+                            "metricName": "requests/failed",
+                            "operator": "GreaterThan",
+                            "timeAggregation": "Count",
+                            "skipMetricValidation": false,
+                            "criterionType": "StaticThresholdCriterion"
+                        }
+                    ],
+                    "odata.type": "Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria"
+                },
+                "autoMitigate": true,
+                "targetResourceType": "microsoft.insights/components",
+                "targetResourceRegion": "eastus2",
+                "actions": [
+                    {
+                        "actionGroupId": "[parameters('actiongroups_failedreq_externalid')]",
+                        "webHookProperties": {}
+                    }
+                ]
+            }
+        }
+    ]
+}

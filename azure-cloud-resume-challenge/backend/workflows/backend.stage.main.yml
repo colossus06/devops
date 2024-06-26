@@ -1,0 +1,73 @@
+name: Build
+
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened]
+    branches: ["main"]
+    paths:
+      - 'backend/**'
+
+env:
+  AZURE_FUNCTIONAPP_NAME: 'GetCount'   # set this to your function app name on Azure
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'backend'       # set this to the path to your function app project, defaults to the repository root
+  PYTHON_VERSION: '3.9'                     # set this to the python version to use (e.g. '3.6', '3.7', '3.8')
+
+jobs:
+  build-backend:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v3
+      env:
+        PR_NUMBER: ${{ github.event.number }}
+
+    - name: Setup Python ${{ env.PYTHON_VERSION }} Environment
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    - name: 'Resolve Project Dependencies Using Pip'
+      shell: bash
+      run: |
+        pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/api'
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt --target=".python_packages/lib/site-packages"
+        popd
+    - name: Test with unittest
+      run: |
+        cd backend/api/
+        pip install -r requirements.txt
+        python -m unittest test_table.py
+
+    - name: Upload artifact for deployment job
+      uses: actions/upload-artifact@v2
+      with:
+        name: python-app
+        path: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/api
+
+  deploy-to-staging:
+    runs-on: ubuntu-latest
+    environment:
+      name: 'staging'
+      url: 'https://funcstagerctopcug.azurewebsites.net'
+    needs: 
+      - build-backend
+    if: needs.build-backend.result == 'success'
+    steps:
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v2
+      with:
+        name: python-app
+        path: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/api
+
+
+    - name: 'Run Azure Functions Action'
+      uses: Azure/functions-action@v1
+      id: fa
+      with:
+        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/api
+        publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+        scm-do-build-during-deployment: true
+        enable-oryx-build: true    

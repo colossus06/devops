@@ -1,0 +1,77 @@
+name: deploy_frontend
+permissions:
+  contents: write
+# Deploys when push is made from templates/frontend/ folder
+
+
+on:
+    push:
+        branches: [ main ]
+        paths: 
+        - 'frontend/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: azure/login@v1
+      with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Upload to blob storage
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+            az storage blob upload-batch --account-name sttestcrctopcug --auth-mode key -d '$web' -s frontend/ --overwrite
+
+    - name: Purge CDN endpoint
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+           az cdn endpoint purge --content-paths  "/*" --profile-name "cdnpcrctopcug" --name "epcrctopcug" --resource-group "rgcrctopcug" --no-wait
+
+  # Azure logout
+    - name: logout
+      run: |
+            az logout
+      if: always()
+    
+  smoke-tests:
+    needs: build
+    runs-on: ubuntu-22.04
+    steps:        
+      - name: Checkout
+        uses: actions/checkout@v3
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+
+      
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          command: npm run ui-regression
+
+
+      - name: Uploading artifact
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cypress-execution-report
+          path: cypress/reports/html
+          retention-days: 30
+
+      - name: Reports deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+            branch: gh-pages
+            folder: cypress/reports/html
+    
+
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_USERNAME: elka
+          SLACK_TITLE: UI Regression Test 🕸
+          SLACK_MESSAGE: "New changes :rocket:"
+          SLACK_COLOR: ${{ job.status }}

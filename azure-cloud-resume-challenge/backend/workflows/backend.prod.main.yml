@@ -1,0 +1,85 @@
+name: Prod deploy
+
+on:
+    workflow_run:
+      workflows: [Build]
+      types:
+        - completed
+
+# on:
+#   workflow_dispatch:
+#   pull_request:
+#     types: [closed]
+#     branches: ["main"]
+#     paths:
+#       - 'backend/**'
+
+env:
+  AZURE_FUNCTIONAPP_NAME: 'GetCount'   # set this to your function app name on Azure
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'backend'       # set this to the path to your function app project, defaults to the repository root
+  PYTHON_VERSION: '3.9'                     # set this to the python version to use (e.g. '3.6', '3.7', '3.8')
+
+defaults:
+    run:
+        shell: bash
+
+jobs:
+  build-backend:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v3
+
+    - name: Setup Python ${{ env.PYTHON_VERSION }} Environment
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+        
+  deploy-to-prod:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged || github.ref == 'refs/heads/main'
+    environment:
+      name: 'production'
+      url: 'https://funcrctopcug.azurewebsites.net'    
+    steps:
+
+    - name: 'Download artifact'
+      uses: actions/github-script@v6
+      with:
+        script: |
+            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                run_id: context.payload.workflow_run.id,
+            });
+            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
+                return artifact.name == "python-app"
+            })[0];
+            let download = await github.rest.actions.downloadArtifact({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                artifact_id: matchArtifact.id,
+                archive_format: 'zip',
+            });
+            let fs = require('fs');
+            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/python-app.zip`, Buffer.from(download.data));
+
+    - uses: actions/checkout@v1
+    - name: Setup and run tests
+      run: |
+       pwd
+       ls -la
+       whoami
+ 
+
+
+    - name: 'Run Azure Functions Action'
+      uses: Azure/functions-action@v1
+      id: fa
+      with:
+        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/api
+        publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+        scm-do-build-during-deployment: true
+        enable-oryx-build: true

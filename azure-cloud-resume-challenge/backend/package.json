@@ -1,0 +1,25 @@
+{
+  "name": "crc-backend",
+  "version": "1.0.0",
+  "description": "crc-backend",
+  "main": "index.js",
+  "scripts": {
+    "backend-func": "cypress run --browser chrome --spec cypress/e2e/function.spec.cy.js",
+    "ui-allure": "cypress run --browser chrome --spec cypress/e2e/**.js --env allure=true",
+    "allure:clear": "rm -r allure-results/ allure-report cypress/screenshots || true",
+    "allure:report": "allure generate allure-results --clean -o allure-report",
+    "allure:history": "mv -f allure-report/history allure-results/history && rm -r allure-report || true"
+  },
+  "keywords": [],
+  "author": "Gulcan Topcu",
+  "license": "ISC",
+  "devDependencies": {
+    "@shelex/cypress-allure-plugin": "^2.39.1",
+    "cypress": "^12.13.0",
+    "cypress-mochawesome-reporter": "^3.4.0"
+  },
+  "dependencies": {
+    "cls": "^0.1.5",
+    "npm": "^9.6.6"
+  }
+}

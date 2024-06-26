@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500&display=swap" rel="stylesheet">
+
+   <!--- Basic Page Needs
+   ================================================== -->
+   <meta charset="utf-8">
+	<title>Gulcan's Resume</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+   <!-- Mobile Specific Metas
+   ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+    ================================================== -->
+   <link rel="stylesheet" href="css/default.css">
+	<link rel="stylesheet" href="css/layout.css">
+   <link rel="stylesheet" href="css/media-queries.css">
+   <link rel="stylesheet" href="css/magnific-popup.css">
+
+   <!-- Script
+   ================================================== -->
+   <script src="js/modernizr.js"></script>
+   <script src="main.js"></script>
+
+   <!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="favicon.png" >
+
+   <style>
+      .column {
+        float: left;
+        width: 33.33%;
+        padding: 6px;
+      }
+      .row::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+    </style>
+   
+    <script>
+  /*
+       function setCookie(cname, cvalue, exdays) {
+          var d = new Date();
+          d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+          var expires = "expires="+ d.toUTCString();
+          document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      }
+  
+      function getCookie(cname) {
+          var name = cname + "=";
+          var decodedCookie = decodeURIComponent(document.cookie);
+          var ca = decodedCookie.split(';');
+          for(var i = 0; i < ca.length; i++) {
+              var c = ca[i];
+              while (c.charAt(0) == ' ') {
+                  c = c.substring(1);
+              }
+              if (c.indexOf(name) == 0) {
+                  return c.substring(name.length, c.length);
+              }
+          }
+          return "";
+      }
+  
+      function checkCookie() {
+          var visits = getCookie("visits");
+          if (visits != "") {
+              visits = parseInt(visits) + 1;
+         }
+      }
+
+    
+      const pageviewsCount=document.getElementById('pageviews-count')
+      const visitsCount=document.getElementById('visit-count')
+
+
+      if (sessionStorage.getItem('visit') === null){
+         // new visit + page view
+         updateCounter('type=visit-pageview')
+      } else {
+         // just pageview
+         updateCounter('type=pageview')
+      }
+
+      function updateCounter() {
+         fetch('http://127.0.0.1:3002?' +type)
+         //result will be in json format
+         .then(res => res.json())
+         .then(data => {
+            pageviewsCount.textContent = data.pageviews;
+            visitsCount.textContent = data.visits;
+         })
+      }
+
+      
+
+      sessionStorage.setItem('visit','x');
+      */
+   
+      
+   </script>
+
+</head>
+
+<body>
+
+   <!-- Header
+   ================================================== -->
+   <header id="home">
+
+      <nav id="nav-wrap">
+
+         <a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show navigation</a>
+	      <a class="mobile-btn" href="#" title="Hide navigation">Hide navigation</a>
+
+         <ul id="nav" class="nav">
+            <li class="current"><a class="smoothscroll" href="#home">Home</a></li>
+            <li><a class="smoothscroll" href="#about">About</a></li>
+	         <li><a class="smoothscroll" href="#resume">Resume</a></li>
+         </ul> <!-- end #nav -->
+
+      </nav> <!-- end #nav-wrap -->
+
+      <div class="row banner">
+         <div class="banner-text">
+            <h1 class="responsive-headline" data-cy="gulcan">Hi, I'm Gulcan</h1>   
+
+            <p>This page has been viewed <a id="counter"></a> times.</p>
+
+            <!-- <p>and this page has been viewed <a id="pageviews-count"></a> times </p>
+            <p>and this page has been viewed <a id="visit-count"></a> times </p>  -->
+
+
+            <ul class="social" >
+               <li><a href="https://devtechops.dev"><i class="fa fa-external-link"></i></a></li>
+               <li><a href="https://linkedin.com/in/gulcantopcu"><i class="fa fa-linkedin"></i></a></li>
+               <li><a href="https://github.com/colossus06"><i class="fa fa-github"></i></a></li>
+            </ul>
+         </div>
+      </div>
+
+      <p class="scrolldown">
+         <a class="smoothscroll" href="#about"><i class="icon-down-circle"></i></a>
+      </p>
+
+   </header> <!-- Header End -->
+
+
+   <!-- About Section
+   ================================================== -->
+   <section id="about">
+
+      <div class="row">
+
+         <div class="three columns">
+
+            <img class="profile-pic"  src="images/me.png" alt="" />
+
+         </div>
+
+         <div class="nine columns main-col">
+
+            <h2>ABOUT ME</h2>
+
+            <p> Hi, I'm Gulcan. I do cloud things 🔮.
+               
+         </br>
+      </br>
+       I built this page as part of the <span><a href="https://github.com/colossus06">Cloud Resume Challenge.</a></span>
+            
+
+         </div> <!-- end .main-col -->
+
+      </div>
+
+   </section> <!-- About Section End-->
+
+
+   <!-- Resume Section
+   ================================================== -->
+   <section id="resume">
+
+      <!-- Education
+      ----------------------------------------------- -->
+      <div class="row education">
+
+         <div class="three columns header-col">
+            <h1><span>Certifications</span></h1>
+         </div>
+
+         <div class="nine columns main-col">
+
+            <div class="row item">
+
+               <div class="twelve columns">
+
+                  <h4>DevOps Engineer Expert AZ-400</h4>
+                  <p class="info"><em class="date">February 15, 2023</em></p>
+
+               </div>
+
+            </div> <!-- item end -->
+
+            <div class="row item">
+
+               <div class="twelve columns">
+
+                  <h4>Azure Developer Associate AZ-204</h4>
+                  <p class="info"><em class="date">December 30, 2022</em></p>
+
+               </div>
+
+            </div> <!-- item end -->
+
+            <div class="row item">
+
+               <div class="twelve columns">
+
+                  <h4>Azure Fundamentals AZ-900</h4>
+                  <p class="info"><em class="date">April 03, 2022</em></p>
+
+               </div>
+               
+            </div> <!-- item end -->
+
+            <div class="row item">
+   
+               <div class="twelve columns">
+   
+                  <h4>CS50’s Introduction to Programming with Python</h4>
+                  <p class="info"><em class="date">Nov 14, 2022</em></p>
+   
+               </div>
+   
+            </div> <!-- item end -->
+
+            </div> <!-- item end -->
+
+
+         </div> <!-- main-col end -->
+
+      </div> <!-- End Education -->
+
+            <!-- Work
+      ----------------------------------------------- -->
+      <div class="row work">
+
+         <div class="three columns header-col">
+            <h1><span>Projects</span></h1>
+         </div>
+
+         <div class="nine columns main-col">
+
+            <div class="row item">
+
+               <div class="twelve columns">
+
+                  <h4>Cloud Resume Challenge</h4>
+                  <p class="info"><em class="date">April 2023 -May 2023</em></p>
+
+                  <p>
+                  Building my resume website from the ground up with using utilizing a wide variety of Microsoft Azure's Cloud services such as :
+                  <li ><strong style="color: skyblue">Backend:</strong>  Azure CosmosDB Table API, Azure Functions, Azure Python SDK </li>  
+               <li ><strong style="color: skyblue">Frontend:</strong>  Azure CDN, Azure DNS zones, Azure Blob Storage</li> 
+               <li ><strong style="color: skyblue">CI/CD:</strong> Terraform, ARM templates, Bicep, Github Actions</li>
+               <li ><strong style="color: skyblue">Tests:</strong> Unittest, Cypress, checkov, Github Pages</li>
+
+                  </p>
+
+               </div>               
+
+            </div> <!-- item end -->          
+         
+            <div class="row item">
+
+               <div class="twelve columns">
+
+                  <h4>Aws Cloud Project Bootcamp</h4>
+                  <p class="info"><em class="date">February 2023-May 2023</em></p>
+
+                  <p>
+                  <li>Attending 8-weeks and building a twitter clone webapp using Postgres, SQL, Docker, Python and various AWS cloud service such as DynamoDB, lambda, Xray, CloudWatch, Amplify, Cognito, RDS, ECS Fargate, Boto3, AWS ELB, Route 53, CDK, CloudFormation.</li> 
+                  </p>
+
+               </div>               
+
+            </div> <!-- item end -->        
+
+            <div class="row item">
+
+               <div class="twelve columns">
+
+                  <h4>Devops home lab</h4>
+                  <p class="info"><em class="date">Aug 2022-Feb 2023</em></p>
+
+                  <p>
+                  <li>Setup CICD Pipeline for java and python applications using various tools such as ECR, Docker Hub, Nexus, Sonar, datree, trivy, Helm, Jenkins, Kubernetes, Docker, EKS, Azure Devops, AKS, ACR. </li> 
+                  </p>
+
+               </div>               
+
+            </div> <!-- item end -->        
+           
+
+         </div> <!-- main-col end -->
+
+      </div> <!-- End Work -->
+
+      <!-- Work
+      ----------------------------------------------- -->
+      <div class="row work">
+
+         <div class="three columns header-col">
+            <h1><span>Work</span></h1>
+         </div>
+
+         <div class="nine columns main-col">
+
+            <div class="row item">
+
+               <div class="twelve columns">
+
+                  <h4>Mossé Cyber Security Institute</h4>
+                  <p class="info">Web Developer <span>&bull;</span> <em class="date">Aug 2022- Oct 2022</em></p>
+
+                  <p>
+                  <li>Migrated a jekyll blog consisting of various articles to a new platform using Sphinx.</li> 
+                  <li>Stacks used linux, git, css, html, bootstrap,figma, UI/UX design and python for automation-scripting. </li>
+                  </p>
+
+               </div>
+
+               
+
+            </div> <!-- item end -->
+
+            <div class="row item">
+
+               <div class="twelve columns">
+
+                  <h4>Mossé Cyber Security Institute</h4>
+                  <p class="info">Cyber Security Content Writer <span>&bull;</span> <em class="date">Aug 2022- Oct 2022</em></p>
+
+                  <p>
+                  <li>Created various technical hands-on blog posts on cyber and devops, devsecops domains.</li> 
+                  
+                  </p>
+
+               </div>
+
+               
+
+            </div> <!-- item end -->
+
+
+
+           
+
+         </div> <!-- main-col end -->
+
+      </div> <!-- End Work -->
+
+
+
+
+
+   <!-- footer
+   ================================================== -->
+   <footer>
+
+      <div class="row">
+
+         <div class="twelve columns">
+
+            <ul class="social-links" data-cy="endlinks">
+               <li><a href="https://linkedin.com/in/gulcantopcu"><i class="fa fa-linkedin"></i></a></li>
+               <li><a href="https://devtechops.dev"><i class="fa fa-external-link"></i></a></li>
+               <li><a href="https://github.com/colossus06"><i class="fa fa-github"></i></a></li>
+            </ul>
+
+            <ul class="copyright">
+               <a href="https://www.styleshout.com/free-templates/ceevee/"> Template by CeeVee </a>
+                
+            </ul>
+
+         </div>
+
+         <div id="go-top"><a class="smoothscroll" title="Back to Top" href="#home"><i class="icon-up-open"></i></a></div>
+
+      </div>
+
+   </footer> <!-- Footer End-->
+
+   <!-- Java Script
+   ================================================== -->
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+   <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
+   <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
+
+   <script src="js/jquery.flexslider.js"></script>
+   <script src="js/waypoints.js"></script>
+   <script src="js/jquery.fittext.js"></script>
+   <script src="js/magnific-popup.js"></script>
+   <script src="js/init.js"></script>
+
+</body>
+
+</html>

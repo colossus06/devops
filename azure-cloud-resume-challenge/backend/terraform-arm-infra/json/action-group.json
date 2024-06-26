@@ -1,0 +1,48 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "actionGroups_failedreq_name": {
+            "defaultValue": "failedreq",
+            "type": "String"
+        },
+        "workflows_testlgappp_externalid": {            
+            "defaultValue": "[resourceId('Microsoft.Logic/workflows', 'testlgappp')]",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "microsoft.insights/actionGroups",
+            "apiVersion": "2023-01-01",
+            "name": "[parameters('actionGroups_failedreq_name')]",
+            "location": "Global",
+            "tags": {
+                "env": "crc"
+            },
+            "properties": {
+                "groupShortName": "[parameters('actionGroups_failedreq_name')]",
+                "enabled": true,
+                "emailReceivers": [],
+                "smsReceivers": [],
+                "webhookReceivers": [],
+                "eventHubReceivers": [],
+                "itsmReceivers": [],
+                "azureAppPushReceivers": [],
+                "automationRunbookReceivers": [],
+                "voiceReceivers": [],
+                "logicAppReceivers": [
+                    {
+                        "name": "[concat(parameters('actionGroups_failedreq_name'), '-logicapp')]",
+                        "resourceId": "[parameters('workflows_testlgappp_externalid')]",
+                        "callbackUrl": "https://prod-80.eastus.logic.azure.com:443/workflows/87fd0f6605b74217af84eedca3ed938e/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=wGI6C-ToKU1X5aixS7gJWUOYlONVLPkaEntgtLHsGR8",
+                        "useCommonAlertSchema": true
+                    }
+                ],
+                "azureFunctionReceivers": [],
+                "armRoleReceivers": []
+            }
+        }
+    ]
+}

@@ -1,0 +1,6 @@
+Resources:
+  Test:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-022e1a32d3f742bd8
+      InstanceType: t2.micro

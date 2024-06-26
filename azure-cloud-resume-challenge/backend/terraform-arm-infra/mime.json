@@ -1,0 +1,25 @@
+{
+   ".txt":"text/plain",
+   ".log":"text/plain",
+   ".less":"text/plain",
+   ".scss":"text/plain",
+   ".otf":"text/plain",
+   ".css":"text/css",
+   ".ttf":"font/ttf",
+   ".woff":"font/woff",
+   ".gif":"image/gif",
+   ".svg":"image/svg+xml",
+   ".eot":"application/vnd.ms-fontobject",
+   ".html":"text/html",
+   ".jpg":"image/jpeg",
+   ".jpeg":"image/jpeg",
+   ".png":"image/png",
+   ".json":"application/json",
+   ".js":"application/javascript",
+   ".xml":"application/xml",
+   ".xls":"application/vnd.ms-excel",
+   ".xlsx":"application/vnd.ms-excel",
+   ".doc":"application/msword",
+   ".docx":"application/msword"
+   
+}

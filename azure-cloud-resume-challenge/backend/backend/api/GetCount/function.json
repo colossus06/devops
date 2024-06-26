@@ -1,0 +1,31 @@
+{
+    "scriptFile": "__init__.py",
+    "bindings": [
+      {
+        "name": "visitorCount",
+        "type": "table",
+        "tableName": "cloudres",
+        "partitionKey": "cloud",
+        "rowKey": "id",
+        "connection": "connectionString",
+        "direction": "in"
+      },
+      {
+        "authLevel": "function",
+        "type": "httpTrigger",
+        "direction": "in",
+        "name": "req",
+        "methods": [
+          "get",
+          "post"
+        ],
+        "route": "id/"
+      },
+      {
+        "type": "http",
+        "direction": "out",
+        "name": "$return"
+      }
+    ],
+    "disabled": false
+  }
