@@ -2,7 +2,7 @@
 
 * **Cloud Resume Challenge on Azure:** Hands-on experience deploying a cloud-based resume website using Azure resources.
 * **AWS Cloud Project Bootcamp:** A comprehensive bootcamp covering core AWS services like S3, EC2, and Lambda functions.
-* **20 DevOps Projects by Imran Teli:** This project set explores various DevOps concepts in practice, including CI/CD pipelines, configuration management, and containerization using tools like Jenkins, Docker, and Terraform. (Link the project set if available, or mention the specific tools covered)
+* **20 DevOps Projects by Imran Teli:** This project set explores various DevOps concepts in practice, including CI/CD pipelines, configuration management, and containerization using tools like Jenkins, Docker, and Terraform.
 
 ### Benefits:
 
